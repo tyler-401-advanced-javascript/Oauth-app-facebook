@@ -1,11 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
+
 <body>
+  <a href="#" id="facebook-auth">Sign in with FB!</a>
+
+<script>
+  const URL = 'https://www.facebook.com/v6.0/dialog/oauth';
+  const options = {
+    client_id: '197306561630648',
+    redirect_uri: 'https://localhost:3000/oauth',
+    state: 'dumbledoredies',
+    response_type: 'code'
+  }
+  let queryString = Object.keys(options).map(key => {
+    return `${key}=${options[key]}`;
+  }).join('&');
+
+  const url = URL + '?' + queryString;
+  console.log(url);
+  //set the url for the linkypoo
+  document.getElementById('facebook-auth').setAttribute('href', url);
   
+</script>
 </body>
+
 </html>
