@@ -1,9 +1,15 @@
 const express = require('express');
 const cors = require('cors')
+const https = require('https')
+const fs = require('fs')
+const path = require('path')
 
-const app = express();
+// const app = require('https-localhost')();
+
+const app = express()
 
 //configure our app
+app.use(express.static('public'))
 app.use(cors());
 app.use(express.json());
 
@@ -24,7 +30,10 @@ module.exports = {
   app: app,
   start: (port) => {
     const PORT = port || 3001;
-    app.listen(PORT, () => {
+    https.createServer({
+      key: fs.readFileSync(path.join(__dirname, '..', 'server.key')),
+      cert: fs.readFileSync(path.join(__dirname, '..', 'server.cert'))
+    }, app).listen(PORT, () => {
       console.log(`Listening on port ${PORT}`)
     })
   }
